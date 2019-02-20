@@ -5,6 +5,27 @@ import pandas as pd
 from time import clock
 
 # 对mapseq文件处理，得到genus和species水平上的物种绝对丰度表和相对丰度表
+"""
+# 将所有的mapseq_merged文件转移
+cp -r 04_mapseq/ERR*.trimmed.mapseq mapseq_analysis
+cd mapseq_analysis
+# 批量为文件改名
+for name in `ls`; do echo $name ${name%.trimmed.mapseq}; done
+# 批量修改文件名字
+for name in `ls`; do mv $name ${name%.trimmed.mapseq}; done
+# 打印输出文件名
+for name in `ls`; do echo $name; done > /mnt/raid1/laisenying/毕业设计/ASD/16s/PRJEB15420/mapseq_filename.txt
+# 批处理文件，删除第一行
+sed -i '1d' ERR*
+# 批处理文件，删除掉第一行的#
+sed -i 's/#//' ERR*
+
+执行python文件
+python abundance.py -i mapseq_filename.txt \
+  -g 0.4 \
+  -s 0.4 \
+  -o /mnt/raid1/laisenying/毕业设计/ASD/16s/PRJNA282013/result
+"""
 
 parser = argparse.ArgumentParser(description="after_mapseq_analysis")
 parser.add_argument('-i', "--infile", help="the mapseq_result_filename.txt that needed analysis", default="mapseq_filename.txt")
